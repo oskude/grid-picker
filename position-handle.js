@@ -35,7 +35,7 @@ extends HTMLElement
 			</style>
 			<corner-handle id="startHandle"></corner-handle>
 			<corner-handle id="endHandle"></corner-handle>
-		`.replace(/>\s+</g, "><");
+		`.trim().replace(/>\s+</g, "><");
 	}
 
 	set cell (c)

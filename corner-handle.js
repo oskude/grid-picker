@@ -12,7 +12,7 @@ extends HTMLElement
 					display: block;
 				}
 			</style>
-		`;
+		`.trim().replace(/>\s+</g, "><");
 		this._bbox = {};
 		this._boundOnMouseUp = this._onMouseUp.bind(this);
 		this._boundOnMouseMove = this._onMouseMove.bind(this);

@@ -16,7 +16,7 @@ extends HTMLElement
 					opacity: 0.5;
 				}
 			</style>
-		`;
+		`.trim().replace(/>\s+</g, "><");
 		this.size = 10;
 		this.pos = 0;
 		this._type = 0; // 0 == horizontal, 1 == vertical

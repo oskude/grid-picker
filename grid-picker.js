@@ -22,7 +22,7 @@ extends HTMLElement
 				}
 			</style>
 			<slot></slot>
-		`.replace(/>\s+</g, "><");
+		`.trim().replace(/>\s+</g, "><");
 		let observer = new ResizeObserver(entries=>{
 			this.onResize();
 		});
@@ -64,6 +64,14 @@ extends HTMLElement
 			return a;
 		}, []);
 
+		if (this.posHandles.length == 0) {
+			for (let cell of this.cellPositions) {
+				let posHandle = document.createElement("position-handle");
+				posHandle.cell = cell.elem;
+				this.posHandles.push(this.appendChild(posHandle));
+			}
+		}
+
 		if (this.colHandles.length == 0) {
 			this.colSizes.some((colSize,i)=>{
 				let handle = document.createElement("resize-handle");
@@ -82,14 +90,6 @@ extends HTMLElement
 				this.rowHandles.push(this.appendChild(handle));
 				return i == this.rowSizes.length - 2; // exit after second last element
 			});
-		}
-
-		if (this.posHandles.length == 0) {
-			for (let cell of this.cellPositions) {
-				let posHandle = document.createElement("position-handle");
-				posHandle.cell = cell.elem;
-				this.posHandles.push(this.appendChild(posHandle));
-			}
 		}
 
 		this.colHandles.forEach((handle,i)=>{
