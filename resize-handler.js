@@ -1,5 +1,5 @@
 export
-class VerticalHandler
+class ResizeHandler
 extends HTMLElement
 {
 	constructor ()
@@ -22,6 +22,7 @@ extends HTMLElement
 		`;
 		this.size = 10;
 		this.pos = 0;
+		this.type = 0; // 0 == vertical, 1 == horizontal
 		this.bindOnMouseUp = this.onMouseUp.bind(this);
 		this.bindOnMouseMove = this.onMouseMove.bind(this);
 		this.addEventListener("mousedown", this.onMouseDown.bind(this));
@@ -45,6 +46,10 @@ extends HTMLElement
 	onMouseMove (event)
 	{
 		let newPos = event.clientX;
+		if (this.type === 1) {
+			let newPos = event.clientY;
+		}
+
 		if (this.pos != newPos) {
 			this.pos = newPos;
 			this.setPos(newPos);
@@ -59,10 +64,14 @@ extends HTMLElement
 
 	setPos (pos)
 	{
-		this.style.left = (pos - this.size/2) + "px";
+		if (this.type === 1) {
+			this.style.top = (pos - this.size/2) + "px";
+		} else {
+			this.style.left = (pos - this.size/2) + "px";
+		}
 	}
 }
 customElements.define(
-	"vertical-handler",
-	VerticalHandler
+	"resize-handler",
+	ResizeHandler
 );

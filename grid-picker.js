@@ -1,5 +1,5 @@
 import ResizeObserver from "./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js";
-import {VerticalHandler} from "./vertical-handler.js";
+import {ResizeHandler} from "./resize-handler.js";
 
 // TODO: put in utils
 Array.prototype.sumOf = function (from, to) {
@@ -38,7 +38,8 @@ extends HTMLElement
 
 		if (this.colHandlers.length == 0) {
 			this.colSizes.some((colSize,i)=>{
-				let handler = document.createElement("vertical-handler");
+				let handler = document.createElement("resize-handler");
+				handler.type = 0;
 				handler.onMove = (pos) => this.setColumnPos(i, pos);
 				this.colHandlers.push(this.appendChild(handler));
 				return i == this.colSizes.length - 2; // exit after second last element
