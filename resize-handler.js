@@ -12,20 +12,35 @@ extends HTMLElement
 					display: block;
 					position: absolute;
 					/* TODO: let user set these */
-					width: 10px;
-					height: 100%;
 					background: purple;
 					opacity: 0.5;
-					cursor: col-resize;
 				}
 			</style>
 		`;
 		this.size = 10;
 		this.pos = 0;
-		this.type = 0; // 0 == vertical, 1 == horizontal
+		this._type = 0; // 0 == horizontal, 1 == vertical
 		this.bindOnMouseUp = this.onMouseUp.bind(this);
 		this.bindOnMouseMove = this.onMouseMove.bind(this);
 		this.addEventListener("mousedown", this.onMouseDown.bind(this));
+	}
+
+	get type () {
+		return this._type;
+	}
+
+	set type (t) {
+		if (t === "vertical") {
+			this._type = 1;
+			this.style.width = "10px";
+			this.style.height = "100%"
+			this.style.cursor = "col-resize";
+		} else {
+			this._type = 0;
+			this.style.width = "100%";
+			this.style.height = "10px";
+			this.style.cursor = "row-resize";
+		}
 	}
 
 	onMouseDown (event)
@@ -45,9 +60,9 @@ extends HTMLElement
 
 	onMouseMove (event)
 	{
-		let newPos = event.clientX;
-		if (this.type === 1) {
-			let newPos = event.clientY;
+		let newPos = event.clientY;
+		if (this._type === 1) {
+			newPos = event.clientX;
 		}
 
 		if (this.pos != newPos) {
@@ -64,10 +79,10 @@ extends HTMLElement
 
 	setPos (pos)
 	{
-		if (this.type === 1) {
-			this.style.top = (pos - this.size/2) + "px";
-		} else {
+		if (this._type === 1) {
 			this.style.left = (pos - this.size/2) + "px";
+		} else {
+			this.style.top = (pos - this.size/2) + "px";
 		}
 	}
 }
