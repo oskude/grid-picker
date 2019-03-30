@@ -14,7 +14,7 @@ extends HTMLElement
 					/* TODO: let user set these */
 					width: 10px;
 					height: 100%;
-					background: white;
+					background: purple;
 					opacity: 0.5;
 					cursor: col-resize;
 				}
