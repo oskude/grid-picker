@@ -44,7 +44,7 @@ extends HTMLElement
 		}
 
 		this.colHandlers.forEach((handler,i)=>{
-			handler.style.left = colSizes.sumOf(0,i) - 5 + "px";
+			handler.setPos(colSizes.sumOf(0,i));
 		});
 	}
 }
