@@ -1,3 +1,5 @@
+import {CornerHandle} from "./corner-handle.js";
+
 export
 class PositionHandle
 extends HTMLElement
@@ -31,12 +33,9 @@ extends HTMLElement
 					cursor: se-resize;
 				}
 			</style>
-			<div id="startHandle"></div>
-			<div id="endHandle"></div>
-		`;
-		this._boundOnMouseUp = this._onMouseUp.bind(this);
-		this._boundOnMouseMove = this._onMouseMove.bind(this);
-		this.addEventListener("mousedown", this._onMouseDown.bind(this));
+			<corner-handle id="startHandle"></corner-handle>
+			<corner-handle id="endHandle"></corner-handle>
+		`.replace(/>\s+</g, "><");
 	}
 
 	set cell (c)
@@ -45,37 +44,6 @@ extends HTMLElement
 		let style = getComputedStyle(this._cell);
 		this.style.gridColumn = style.gridColumn;
 		this.style.gridRow = style.gridRow;
-	}
-
-	_onMouseDown (event)
-	{
-		document.addEventListener("mouseup", this._boundOnMouseUp);
-		document.addEventListener("mousemove", this._boundOnMouseMove);
-		event.preventDefault();
-		event.stopPropagation();
-		return false;
-	}
-
-	_onMouseUp (event)
-	{
-		document.removeEventListener("mouseup", this._boundOnMouseUp);
-		document.removeEventListener("mousemove", this._boundOnMouseMove);
-	}
-
-	_onMouseMove (event)
-	{
-		console.log(event.clientX, event.clientY);
-		// TODO: maybe use transform until user releases mouse?
-		// TODO: DAMMIT!!!! if we are child of the cell, we cant move handle over other cells!!!!
-		// TODO: so create a single handle element, that is size of cell? so its over all cells
-		//       it has to be "connected" with the cell, so it gets resized when cell resizes (through row/col resize)
-		//       WAIT! cant we attach the handle element to the grid too!?!? AWESOME?
-		if (this._type == 0) {
-			this.style.top = event.clientY + "px";
-			this.style.left = event.clientX + "px";
-		} else {
-
-		}
 	}
 }
 
