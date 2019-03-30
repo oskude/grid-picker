@@ -1,5 +1,5 @@
 export
-class ResizeHandler
+class ResizeHandle
 extends HTMLElement
 {
 	constructor ()
@@ -87,6 +87,6 @@ extends HTMLElement
 	}
 }
 customElements.define(
-	"resize-handler",
-	ResizeHandler
+	"resize-handle",
+	ResizeHandle
 );
