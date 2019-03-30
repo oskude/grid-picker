@@ -34,6 +34,7 @@ extends HTMLElement
 		let style = getComputedStyle(this);
 		this.colSizes = style.gridTemplateColumns.split(" ").map(e=>parseInt(e));
 		this.rowSizes = style.gridTemplateRows.split(" ").map(e=>parseInt(e));
+		this.width = parseInt(style.width);
 
 		if (this.colHandlers.length == 0) {
 			this.colSizes.some((colSize,i)=>{
@@ -59,8 +60,9 @@ extends HTMLElement
 			this.colSizes[i+1] -= sizeChange;
 		}
 
-		// TODO: to keep things scalable/responsive, set % values
-		this.style.gridTemplateColumns = this.colSizes.join("px ") + "px";
+		this.style.gridTemplateColumns = this.colSizes.reduce((a,c)=>{
+			return a + (c / this.width) * 100 + "% ";
+		}, "");
 	}
 }
 customElements.define(
