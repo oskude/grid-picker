@@ -1,3 +1,5 @@
+import ResizeObserver from "./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js";
+
 export
 class GridPicker
 extends HTMLElement
@@ -14,20 +16,17 @@ extends HTMLElement
 			</style>
 			<slot></slot>
 		`.replace(/>\s+</g, "><");
-		let observer = new IntersectionObserver((entries, observer)=>{
-			console.log(entries);
+		let observer = new ResizeObserver(entries=>{
+			this.onResize();
 		});
 		observer.observe(this);
-		/* no event for resizing :(
-		let observer = new MutationObserver(mutations=>{
-			mutations.forEach(mutation=>{
-				console.log(mutation);
-			});
-		});
-		observer.observe(this, {
-			attributes: true, childList: true, subtree: true 
-		});
-		*/
+	}
+
+	onResize ()
+	{
+		let style = getComputedStyle(this);
+		this.width = parseInt(style.width);
+		console.log("WE_RESIZED", this.width);
 	}
 }
 customElements.define(

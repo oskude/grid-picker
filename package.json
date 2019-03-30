@@ -1,0 +1,14 @@
+{
+  "name": "grid-picker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "grid-picker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "resize-observer-polyfill": "^1.5.1"
+  }
+}
