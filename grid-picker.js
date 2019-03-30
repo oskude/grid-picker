@@ -40,7 +40,10 @@ extends HTMLElement
 		this.colSizes = style.gridTemplateColumns.split(" ").map(e=>parseInt(e));
 		this.rowSizes = style.gridTemplateRows.split(" ").map(e=>parseInt(e));
 		this.cellPositions = [...this.children].reduce((a,c)=>{
-			if (c.tagName === "RESIZE-HANDLE") {
+			if (
+				c.tagName === "RESIZE-HANDLE"
+				|| c.tagName === "POSITION-HANDLE"
+			) {
 				return a;
 			}
 			let style = getComputedStyle(c);
@@ -63,12 +66,9 @@ extends HTMLElement
 
 		if (this.posHandles.length == 0) {
 			for (let cell of this.cellPositions) {
-				let startHandle = document.createElement("position-handle");
-				let endHandle = document.createElement("position-handle");
-				startHandle.type = "top-left";
-				endHandle.type = "bottom-right";
-				this.posHandles.push(cell.elem.appendChild(startHandle));
-				this.posHandles.push(cell.elem.appendChild(endHandle));
+				let posHandle = document.createElement("position-handle");
+				posHandle.cell = cell.elem;
+				this.posHandles.push(this.appendChild(posHandle));
 			}
 		}
 
