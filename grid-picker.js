@@ -63,7 +63,10 @@ extends HTMLElement
 
 		if (this.posHandles.length == 0) {
 			for (let cell of this.cellPositions) {
-				console.log(cell);
+				let startHandle = document.createElement("position-handle");
+				// TODO: startHandle.type = "top-left";
+				// TODO: startHandle.type = "bottom-right";
+				this.posHandles.push(cell.elem.appendChild(startHandle));
 			}
 		}
 
