@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>grid picker prototype 1</title>
+<script src="prototype1.js" type="module"></script>
+<style>
+html,
+body,
+grid-picker {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+#tree {
+	background: indianred;
+	grid-column: 1;
+	grid-row: 1 / 4;
+}
+#edit {
+	background: seagreen;
+	grid-column: 2 / 4;
+	grid-row: 1 / 3;
+}
+#help {
+	background: dodgerblue;
+	grid-column: 2 / 4;
+	grid-row: 3 / 4;
+}
+</style>
+</head>
+<body>
+<grid-picker>
+	<div id="tree">tree</div>
+	<div id="edit">edit</div>
+	<div id="help">help</div>
+</grid-picker>
+</body>
+</html>
