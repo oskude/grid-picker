@@ -11,8 +11,6 @@ extends HTMLElement
 				:host {
 					display: block;
 					position: absolute;
-					left: 0;
-					top: 0;
 					/* TODO: let user set these */
 					background: purple;
 					opacity: 0.5;
@@ -21,6 +19,25 @@ extends HTMLElement
 				}
 			</style>
 		`;
+		this._type = 0;
+	}
+
+	get type () {
+		return this._type;
+	}
+
+	set type (t) {
+		if (t === "top-left") {
+			this._type = 0;
+			this.style.top = 0;
+			this.style.left = 0;
+			this.style.cursor = "nw-resize";
+		} else {
+			this._type = 1;
+			this.style.bottom = 0;
+			this.style.right = 0;
+			this.style.cursor = "se-resize";
+		}
 	}
 }
 
