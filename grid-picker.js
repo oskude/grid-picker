@@ -32,20 +32,35 @@ extends HTMLElement
 	onResize ()
 	{
 		let style = getComputedStyle(this);
-		let colSizes = style.gridTemplateColumns.split(" ").map(e=>parseInt(e));
-		let rowSizes = style.gridTemplateRows.split(" ").map(e=>parseInt(e));
+		this.colSizes = style.gridTemplateColumns.split(" ").map(e=>parseInt(e));
+		this.rowSizes = style.gridTemplateRows.split(" ").map(e=>parseInt(e));
 
 		if (this.colHandlers.length == 0) {
-			colSizes.some((colSize,i)=>{
+			this.colSizes.some((colSize,i)=>{
 				let handler = document.createElement("vertical-handler");
+				handler.onMove = (pos) => this.setColumnPos(i, pos);
 				this.colHandlers.push(this.appendChild(handler));
-				return i == colSizes.length - 2; // exit after second last element
+				return i == this.colSizes.length - 2; // exit after second last element
 			});
 		}
 
 		this.colHandlers.forEach((handler,i)=>{
-			handler.setPos(colSizes.sumOf(0,i));
+			handler.setPos(this.colSizes.sumOf(0,i));
 		});
+	}
+
+	setColumnPos (i, pos)
+	{
+		let offset = this.colSizes.sumOf(0, i);
+		let sizeChange = pos - offset;
+
+		this.colSizes[i] += sizeChange;
+		if (this.colSizes[i+1] >= 1) {
+			this.colSizes[i+1] -= sizeChange;
+		}
+
+		// TODO: to keep things scalable/responsive, set % values
+		this.style.gridTemplateColumns = this.colSizes.join("px ") + "px";
 	}
 }
 customElements.define(

@@ -21,6 +21,7 @@ extends HTMLElement
 			</style>
 		`;
 		this.size = 10;
+		this.pos = 0;
 		this.bindOnMouseUp = this.onMouseUp.bind(this);
 		this.bindOnMouseMove = this.onMouseMove.bind(this);
 		this.addEventListener("mousedown", this.onMouseDown.bind(this));
@@ -43,8 +44,12 @@ extends HTMLElement
 
 	onMouseMove (event)
 	{
-		this.setPos(event.clientX);
-		this.onMove(event.clientX);
+		let newPos = event.clientX;
+		if (this.pos != newPos) {
+			this.pos = newPos;
+			this.setPos(newPos);
+			this.onMove(newPos);
+		}
 	}
 
 	onMove (pos)
