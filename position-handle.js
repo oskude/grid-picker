@@ -51,10 +51,16 @@ extends HTMLElement
 	connectedCallback ()
 	{
 		this._startHandle.onMove = this.onStartHandleMove;
+		this._startHandle.onDone = this.onStartHandleMoveDone;
 		this._endHandle.onMove = this.onEndHandleMove;
 	}
 
 	onStartHandleMove (x,y)
+	{
+		// consumer todo
+	}
+
+	onStartHandleMoveDone (x,y)
 	{
 		// consumer todo
 	}

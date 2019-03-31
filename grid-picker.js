@@ -76,7 +76,7 @@ extends HTMLElement
 
 		// TODO: these are used elsewhere too
 		// TODO: AHAA! these add "white borders" to right and bottom!!!
-		//       i guess its cause we convert to % values and it doesnt roundup correctly?
+		//       i guess its cause we convert to % values and it doesnt roundup perfectly?
 		this.style.gridTemplateColumns = this.colSizes.reduce((a,c)=>{
 			return a + (c / this.width) * 100 + "% ";
 		}, "");
@@ -108,8 +108,10 @@ extends HTMLElement
 						cell.elem.style.gridRow = row;
 					}
 				};
-				// TODO: posHandle.onStartHandleMoveDone -> set posHandle.grid*
-
+				posHandle.onStartHandleMoveDone = (x, y) =>{
+					posHandle.style.gridColumn = cell.elem.style.gridColumn;
+					posHandle.style.gridRow = cell.elem.style.gridRow;
+				};
 				this.posHandles.push(this.appendChild(posHandle));
 			}
 		}

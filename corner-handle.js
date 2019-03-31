@@ -34,6 +34,7 @@ extends HTMLElement
 		document.removeEventListener("mouseup", this._boundOnMouseUp);
 		document.removeEventListener("mousemove", this._boundOnMouseMove);
 		this.style.transform = "";
+		this.onDone(event.clientX, event.clientY);
 	}
 
 	_onMouseMove (event)
@@ -45,6 +46,11 @@ extends HTMLElement
 	}
 
 	onMove (x, y)
+	{
+		// consumer todo
+	}
+
+	onDone (x, y)
 	{
 		// consumer todo
 	}
