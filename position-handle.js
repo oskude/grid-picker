@@ -13,9 +13,11 @@ extends HTMLElement
 				:host {
 					display: block;
 					position: relative;
+					pointer-events: none;
 				}
 				#startHandle,
 				#endHandle {
+					pointer-events: auto;
 					position: absolute;
 					background: purple;
 					opacity: 0.5;
