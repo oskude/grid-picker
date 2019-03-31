@@ -74,14 +74,42 @@ extends HTMLElement
 			return a;
 		}, []);
 
+		// TODO: these are used elsewhere too
+		// TODO: AHAA! these add "white borders" to right and bottom!!!
+		//       i guess its cause we convert to % values and it doesnt roundup correctly?
+		this.style.gridTemplateColumns = this.colSizes.reduce((a,c)=>{
+			return a + (c / this.width) * 100 + "% ";
+		}, "");
+		this.style.gridTemplateRows = this.rowSizes.reduce((a,c)=>{
+			return a + (c / this.height) * 100 + "% ";
+		}, "");
+
 		if (this.posHandles.length == 0) {
 			for (let cell of this.cellPositions) {
 				let posHandle = document.createElement("position-handle");
 				posHandle.cell = cell.elem;
 				posHandle.onStartHandleMove = (x, y) => {
 					let colRow = this._getColRowOfPos(x, y);
-					console.log("colRow", colRow);
+					if (
+						colRow[0] != cell.col.start
+						|| colRow[1] != cell.row.start
+					) {
+						cell.col.start = colRow[0];
+						cell.row.start = colRow[1];
+						let col = [
+							cell.col.start,
+							cell.col.end
+						].join(" / ");
+						let row = [
+							cell.row.start,
+							cell.row.end
+						].join(" / ");
+						cell.elem.style.gridColumn = col;
+						cell.elem.style.gridRow = row;
+					}
 				};
+				// TODO: posHandle.onStartHandleMoveDone -> set posHandle.grid*
+
 				this.posHandles.push(this.appendChild(posHandle));
 			}
 		}
