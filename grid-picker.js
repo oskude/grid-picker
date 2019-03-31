@@ -6,6 +6,16 @@ import {PositionHandle} from "./position-handle.js";
 Array.prototype.sumOf = function (from, to) {
 	return this.slice(from, to+1).reduce((a, c)=>a+c);
 }
+Array.prototype.getFuzzyIndex = function (val) // TODO: rename
+{
+	for (let i = this.length-1; i >= 0; i--) {
+		let w = this.sumOf(0, i);
+		if (val > w) {
+			return i + 1;
+		}
+	}
+	return 0;
+}
 
 export
 class GridPicker
@@ -68,6 +78,10 @@ extends HTMLElement
 			for (let cell of this.cellPositions) {
 				let posHandle = document.createElement("position-handle");
 				posHandle.cell = cell.elem;
+				posHandle.onStartHandleMove = (x, y) => {
+					let colRow = this._getColRowOfPos(x, y);
+					console.log("colRow", colRow);
+				};
 				this.posHandles.push(this.appendChild(posHandle));
 			}
 		}
@@ -129,6 +143,14 @@ extends HTMLElement
 		this.style.gridTemplateRows = this.rowSizes.reduce((a,c)=>{
 			return a + (c / this.height) * 100 + "% ";
 		}, "");
+	}
+
+	_getColRowOfPos (x, y)
+	{
+		return [
+			this.colSizes.getFuzzyIndex(x) + 1,
+			this.rowSizes.getFuzzyIndex(y) + 1
+		];
 	}
 }
 customElements.define(

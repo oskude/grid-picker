@@ -41,6 +41,12 @@ extends HTMLElement
 		let x = event.clientX - this._bbox.left - (this._bbox.width/2);
 		let y = event.clientY - this._bbox.top - (this._bbox.height/2);
 		this.style.transform = `translate(${x}px,${y}px)`;
+		this.onMove(event.clientX, event.clientY);
+	}
+
+	onMove (x, y)
+	{
+		// consumer todo
 	}
 }
 

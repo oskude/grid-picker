@@ -36,6 +36,8 @@ extends HTMLElement
 			<corner-handle id="startHandle"></corner-handle>
 			<corner-handle id="endHandle"></corner-handle>
 		`.trim().replace(/>\s+</g, "><");
+		this._startHandle = this.shadowRoot.querySelector("#startHandle");
+		this._endHandle = this.shadowRoot.querySelector("#endHandle");
 	}
 
 	set cell (c)
@@ -44,6 +46,22 @@ extends HTMLElement
 		let style = getComputedStyle(this._cell);
 		this.style.gridColumn = style.gridColumn;
 		this.style.gridRow = style.gridRow;
+	}
+
+	connectedCallback ()
+	{
+		this._startHandle.onMove = this.onStartHandleMove;
+		this._endHandle.onMove = this.onEndHandleMove;
+	}
+
+	onStartHandleMove (x,y)
+	{
+		// consumer todo
+	}
+
+	onEndHandleMove (x,y)
+	{
+		// consumer todo
 	}
 }
 
