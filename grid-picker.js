@@ -112,6 +112,32 @@ extends HTMLElement
 					posHandle.style.gridColumn = cell.elem.style.gridColumn;
 					posHandle.style.gridRow = cell.elem.style.gridRow;
 				};
+				posHandle.onEndHandleMove = (x, y) => {
+					let colRow = this._getColRowOfPos(x, y);
+					colRow[0]++;
+					colRow[1]++;
+					if (
+						colRow[0] != cell.col.end
+						|| colRow[1] != cell.row.end
+					) {
+						cell.col.end = colRow[0];
+						cell.row.end = colRow[1];
+						let col = [
+							cell.col.start,
+							cell.col.end
+						].join(" / ");
+						let row = [
+							cell.row.start,
+							cell.row.end
+						].join(" / ");
+						cell.elem.style.gridColumn = col;
+						cell.elem.style.gridRow = row;
+					}
+				};
+				posHandle.onEndHandleMoveDone = (x, y) =>{
+					posHandle.style.gridColumn = cell.elem.style.gridColumn;
+					posHandle.style.gridRow = cell.elem.style.gridRow;
+				};
 				this.posHandles.push(this.appendChild(posHandle));
 			}
 		}

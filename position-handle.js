@@ -53,6 +53,7 @@ extends HTMLElement
 		this._startHandle.onMove = this.onStartHandleMove;
 		this._startHandle.onDone = this.onStartHandleMoveDone;
 		this._endHandle.onMove = this.onEndHandleMove;
+		this._endHandle.onDone = this.onEndHandleMoveDone;
 	}
 
 	onStartHandleMove (x,y)
@@ -66,6 +67,11 @@ extends HTMLElement
 	}
 
 	onEndHandleMove (x,y)
+	{
+		// consumer todo
+	}
+
+	onEndHandleMoveDone (x,y)
 	{
 		// consumer todo
 	}
