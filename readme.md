@@ -1,6 +1,8 @@
 # grid-picker
 prototype of a visual editor for css `display:grid`.
 
+![screencap](screencap.gif?raw=true)
+
 > _so i wanted an apps ui layout be user customizable..._
 
 ## ideas
